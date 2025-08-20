@@ -1,0 +1,1649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Christian Mental Health Support - Depths to Heights</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #8e44ad 0%, #3498db 100%);
+            min-height: 100vh;
+            padding-bottom: 70px;
+        }
+
+        .container {
+            max-width: 100%;
+            padding: 15px;
+            min-height: calc(100vh - 70px);
+        }
+
+        .screen {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            color: #8e44ad;
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #7f8c8d;
+            line-height: 1.5;
+        }
+
+        .back-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-bottom: 15px;
+            font-size: 1em;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .card h2 {
+            color: #8e44ad;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .card h3 {
+            color: #34495e;
+            font-size: 1.2em;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+
+        .card p, .card li {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .card ul {
+            margin-left: 20px;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .menu-item {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+
+        .menu-item .icon {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .menu-item h3 {
+            color: #2c3e50;
+            font-size: 0.95em;
+            margin-bottom: 5px;
+        }
+
+        .menu-item p {
+            color: #95a5a6;
+            font-size: 0.8em;
+        }
+
+        .resource-card {
+            background: #f8f9fa;
+            border-left: 4px solid #8e44ad;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+        }
+
+        .resource-card h4 {
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+
+        .resource-card p {
+            color: #555;
+            font-size: 0.95em;
+            margin-bottom: 5px;
+        }
+
+        .resource-card a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        .resource-card a:hover {
+            text-decoration: underline;
+        }
+
+        .contact-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .contact-card h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .contact-card .badge {
+            display: inline-block;
+            background: #27ae60;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            margin-right: 5px;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+
+        .warning-box strong {
+            color: #856404;
+        }
+
+        .emergency-box {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+
+        .emergency-box strong {
+            color: #721c24;
+        }
+
+        .info-box {
+            background: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+
+        .assessment-tool {
+            background: #f0f0f0;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .assessment-item {
+            margin-bottom: 15px;
+        }
+
+        .assessment-item label {
+            display: block;
+            margin-bottom: 5px;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+
+        .assessment-item select, .assessment-item input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+        }
+
+        .assessment-item select:focus, .assessment-item input:focus {
+            outline: none;
+            border-color: #8e44ad;
+        }
+
+        .btn-primary {
+            background: #8e44ad;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 1em;
+            cursor: pointer;
+            width: 100%;
+            margin: 10px 0;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: #7d3c98;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 1em;
+            cursor: pointer;
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        .btn-secondary:hover {
+            background: #2980b9;
+        }
+
+        .checklist {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .checklist-item input[type="checkbox"] {
+            margin-right: 10px;
+            margin-top: 3px;
+        }
+
+        .checklist-item label {
+            flex: 1;
+            color: #555;
+            cursor: pointer;
+        }
+
+        .tab-container {
+            margin: 20px 0;
+        }
+
+        .tab-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            padding: 10px 20px;
+            background: #ecf0f1;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            background: #8e44ad;
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .nav-item {
+            text-align: center;
+            cursor: pointer;
+            padding: 5px;
+            flex: 1;
+        }
+
+        .nav-item.active {
+            color: #8e44ad;
+        }
+
+        .nav-icon {
+            font-size: 22px;
+            display: block;
+            margin-bottom: 3px;
+        }
+
+        .nav-label {
+            font-size: 10px;
+            display: block;
+        }
+
+        .audio-toggle {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            background: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            z-index: 999;
+        }
+
+        .audio-toggle.playing {
+            background: #8e44ad;
+            color: white;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 28px;
+            cursor: pointer;
+            color: #999;
+        }
+
+        .donate-btn {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 1em;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        .scripture-box {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 15px 0;
+            text-align: center;
+        }
+
+        .scripture-box p {
+            color: white;
+            font-style: italic;
+            margin-bottom: 5px;
+        }
+
+        .scripture-box .reference {
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <!-- Audio Toggle -->
+    <div class="audio-toggle" id="audioToggle">
+        <span>🎵</span>
+    </div>
+
+    <div class="container">
+        <!-- Home Screen -->
+        <div class="screen active" id="homeScreen">
+            <div class="header">
+                <h1>Christian Mental Health Support</h1>
+                <p>For discipleship workers supporting those with mental health challenges</p>
+            </div>
+
+            <div class="menu-grid">
+                <div class="menu-item" onclick="showScreen('professionalScreen')">
+                    <div class="icon">👨‍⚕️</div>
+                    <h3>Find Professionals</h3>
+                    <p>Christian therapists</p>
+                </div>
+                <div class="menu-item" onclick="showScreen('assessmentScreen')">
+                    <div class="icon">📋</div>
+                    <h3>Assessment Tools</h3>
+                    <p>Screening guides</p>
+                </div>
+                <div class="menu-item" onclick="showScreen('diagnosisScreen')">
+                    <div class="icon">📚</div>
+                    <h3>Diagnosis Info</h3>
+                    <p>Understanding conditions</p>
+                </div>
+                <div class="menu-item" onclick="showScreen('discipleshipScreen')">
+                    <div class="icon">🤝</div>
+                    <h3>Discipleship Guide</h3>
+                    <p>Supporting strategies</p>
+                </div>
+                <div class="menu-item" onclick="showScreen('crisisScreen')">
+                    <div class="icon">🚨</div>
+                    <h3>Crisis Protocol</h3>
+                    <p>Emergency help</p>
+                </div>
+                <div class="menu-item" onclick="showScreen('resourcesScreen')">
+                    <div class="icon">📖</div>
+                    <h3>Resources</h3>
+                    <p>Books & materials</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Quick Assessment</h2>
+                <p>Is the person you're supporting showing any of these signs?</p>
+                <div class="checklist">
+                    <div class="checklist-item">
+                        <input type="checkbox" id="q1">
+                        <label for="q1">Thoughts of self-harm or suicide</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="q2">
+                        <label for="q2">Hearing or seeing things others don't</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="q3">
+                        <label for="q3">Unable to perform daily activities</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="q4">
+                        <label for="q4">Extreme mood swings</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="q5">
+                        <label for="q5">Substance abuse issues</label>
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="evaluateQuickAssessment()">Evaluate & Get Guidance</button>
+            </div>
+
+            <div class="scripture-box">
+                <p>"Cast all your anxiety on him because he cares for you."</p>
+                <span class="reference">1 Peter 5:7</span>
+            </div>
+        </div>
+
+        <!-- Find Professionals Screen -->
+        <div class="screen" id="professionalScreen">
+            <button class="back-btn" onclick="showScreen('homeScreen')">← Back</button>
+            
+            <div class="header">
+                <h1>Find Christian Mental Health Professionals</h1>
+                <p>Teletherapy and consultation options worldwide</p>
+            </div>
+
+            <div class="card">
+                <h2>24/7 Teletherapy Platforms</h2>
+                
+                <div class="contact-card">
+                    <h4>BetterHelp Christian Counseling</h4>
+                    <span class="badge">Available Worldwide</span>
+                    <span class="badge">24/7</span>
+                    <p>Website: <a href="https://www.betterhelp.com/get-started/" target="_blank">www.betterhelp.com</a></p>
+                    <p>Specifically request Christian counselor during signup</p>
+                    <p>Video, phone, and messaging therapy</p>
+                    <p>Financial aid available</p>
+                </div>
+
+                <div class="contact-card">
+                    <h4>Faithful Counseling</h4>
+                    <span class="badge">Christian Focus</span>
+                    <span class="badge">Licensed Therapists</span>
+                    <p>Website: <a href="https://www.faithfulcounseling.com" target="_blank">www.faithfulcounseling.com</a></p>
+                    <p>Part of BetterHelp network, exclusively Christian</p>
+                    <p>All counselors integrate faith and clinical practice</p>
+                </div>
+
+                <div class="contact-card">
+                    <h4>Christian Therapy Connect</h4>
+                    <span class="badge">Video Sessions</span>
+                    <p>Website: <a href="https://christiantherapyconnect.com" target="_blank">christiantherapyconnect.com</a></p>
+                    <p>Licensed Christian therapists</p>
+                    <p>International access available</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Psychiatric Consultation Services</h2>
+                
+                <div class="contact-card">
+                    <h4>AACC - American Association of Christian Counselors</h4>
+                    <span class="badge">Provider Directory</span>
+                    <p>Website: <a href="https://connect.aacc.net" target="_blank">connect.aacc.net</a></p>
+                    <p>Phone: 1-434-525-9470</p>
+                    <p>Find psychiatrists who integrate faith</p>
+                    <p>Many offer telepsychiatry</p>
+                </div>
+
+                <div class="contact-card">
+                    <h4>Focus on the Family Counseling</h4>
+                    <span class="badge">Free Consultation</span>
+                    <p>Phone: 1-855-771-4357 (HELP)</p>
+                    <p>Website: <a href="https://www.focusonthefamily.com/counseling/" target="_blank">focusonthefamily.com/counseling</a></p>
+                    <p>Free initial consultation with licensed counselors</p>
+                    <p>Referrals to Christian psychiatrists</p>
+                </div>
+
+                <div class="contact-card">
+                    <h4>Pine Rest Christian Mental Health</h4>
+                    <span class="badge">Telehealth Available</span>
+                    <p>Website: <a href="https://www.pinerest.org" target="_blank">www.pinerest.org</a></p>
+                    <p>Phone: 1-866-852-4001</p>
+                    <p>Psychiatric services with Christian integration</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>International Mental Health Missions</h2>
+                
+                <div class="contact-card">
+                    <h4>Heartstream Resources</h4>
+                    <p>Website: <a href="https://www.heartstreamresources.org" target="_blank">www.heartstreamresources.org</a></p>
+                    <p>Specializes in missionary mental health</p>
+                    <p>Consultation for complex cases</p>
+                </div>
+
+                <div class="contact-card">
+                    <h4>Link Care Center</h4>
+                    <p>Website: <a href="https://www.linkcare.org" target="_blank">www.linkcare.org</a></p>
+                    <p>Phone: 1-559-855-4637</p>
+                    <p>Restoration programs for ministry workers</p>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <strong>Important:</strong> When contacting any service, clearly explain that you're a discipleship worker seeking consultation for someone you're supporting, not direct treatment for them.
+            </div>
+        </div>
+
+        <!-- Assessment Tools Screen -->
+        <div class="screen" id="assessmentScreen">
+            <button class="back-btn" onclick="showScreen('homeScreen')">← Back</button>
+            
+            <div class="header">
+                <h1>Assessment Tools</h1>
+                <p>Screening tools to understand severity and needs</p>
+            </div>
+
+            <div class="emergency-box">
+                <strong>⚠️ These are screening tools only.</strong> They do not replace professional diagnosis. If someone is in immediate danger, contact emergency services.
+            </div>
+
+            <div class="card">
+                <h2>PHQ-9 Depression Screening</h2>
+                <p>Over the last 2 weeks, how often has the person been bothered by:</p>
+                
+                <div class="assessment-tool">
+                    <div class="assessment-item">
+                        <label>Little interest or pleasure in doing things</label>
+                        <select id="phq1">
+                            <option value="0">Not at all</option>
+                            <option value="1">Several days</option>
+                            <option value="2">More than half the days</option>
+                            <option value="3">Nearly every day</option>
+                        </select>
+                    </div>
+                    <div class="assessment-item">
+                        <label>Feeling down, depressed, or hopeless</label>
+                        <select id="phq2">
+                            <option value="0">Not at all</option>
+                            <option value="1">Several days</option>
+                            <option value="2">More than half the days</option>
+                            <option value="3">Nearly every day</option>
+                        </select>
+                    </div>
+                    <div class="assessment-item">
+                        <label>Trouble sleeping or sleeping too much</label>
+                        <select id="phq3">
+                            <option value="0">Not at all</option>
+                            <option value="1">Several days</option>
+                            <option value="2">More than half the days</option>
+                            <option value="3">Nearly every day</option>
+                        </select>
+                    </div>
+                    <div class="assessment-item">
+                        <label>Feeling tired or having little energy</label>
+                        <select id="phq4">
+                            <option value="0">Not at all</option>
+                            <option value="1">Several days</option>
+                            <option value="2">More than half the days</option>
+                            <option value="3">Nearly every day</option>
+                        </select>
+                    </div>
+                    <div class="assessment-item">
+                        <label>Poor appetite or overeating</label>
+                        <select id="phq5">
+                            <option value="0">Not at all</option>
+                            <option value="1">Several days</option>
+                            <option value="2">More than half the days</option>
+                            <option value="3">Nearly every day</option>
+                        </select>
+                    </div>
+                    <div class="assessment-item">
+                        <label>Feeling bad about yourself</label>
+                        <select id="phq6">
+                            <option value="0">Not at all</option>
+                            <option value="1">Several days</option>
+                            <option value="2">More than half the days</option>
+                            <option value="3">Nearly every day</option>
+                        </select>
+                    </div>
+                    <div class="assessment-item">
+                        <label>Trouble concentrating</label>
+                        <select id="phq7">
+                            <option value="0">Not at all</option>
+                            <option value="1">Several days</option>
+                            <option value="2">More than half the days</option>
+                            <option value="3">Nearly every day</option>
+                        </select>
+                    </div>
+                    <div class="assessment-item">
+                        <label>Moving/speaking slowly or being fidgety</label>
+                        <select id="phq8">
+                            <option value="0">Not at all</option>
+                            <option value="1">Several days</option>
+                            <option value="2">More than half the days</option>
+                            <option value="3">Nearly every day</option>
+                        </select>
+                    </div>
+                    <div class="assessment-item">
+                        <label>Thoughts of self-harm</label>
+                        <select id="phq9">
+                            <option value="0">Not at all</option>
+                            <option value="1">Several days</option>
+                            <option value="2">More than half the days</option>
+                            <option value="3">Nearly every day</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <button class="btn-primary" onclick="calculatePHQ9()">Calculate Score</button>
+                <div id="phq9Result"></div>
+            </div>
+
+            <div class="card">
+                <h2>GAD-7 Anxiety Screening</h2>
+                <p>Over the last 2 weeks, how often has the person been bothered by:</p>
+                
+                <div class="assessment-tool">
+                    <div class="assessment-item">
+                        <label>Feeling nervous, anxious, or on edge</label>
+                        <select id="gad1">
+                            <option value="0">Not at all</option>
+                            <option value="1">Several days</option>
+                            <option value="2">More than half the days</option>
+                            <option value="3">Nearly every day</option>
+                        </select>
+                    </div>
+                    <div class="assessment-item">
+                        <label>Not being able to stop worrying</label>
+                        <select id="gad2">
+                            <option value="0">Not at all</option>
+                            <option value="1">Several days</option>
+                            <option value="2">More than half the days</option>
+                            <option value="3">Nearly every day</option>
+                        </select>
+                    </div>
+                    <div class="assessment-item">
+                        <label>Worrying too much about different things</label>
+                        <select id="gad3">
+                            <option value="0">Not at all</option>
+                            <option value="1">Several days</option>
+                            <option value="2">More than half the days</option>
+                            <option value="3">Nearly every day</option>
+                        </select>
+                    </div>
+                    <div class="assessment-item">
+                        <label>Trouble relaxing</label>
+                        <select id="gad4">
+                            <option value="0">Not at all</option>
+                            <option value="1">Several days</option>
+                            <option value="2">More than half the days</option>
+                            <option value="3">Nearly every day</option>
+                        </select>
+                    </div>
+                    <div class="assessment-item">
+                        <label>Being so restless it's hard to sit still</label>
+                        <select id="gad5">
+                            <option value="0">Not at all</option>
+                            <option value="1">Several days</option>
+                            <option value="2">More than half the days</option>
+                            <option value="3">Nearly every day</option>
+                        </select>
+                    </div>
+                    <div class="assessment-item">
+                        <label>Becoming easily annoyed or irritable</label>
+                        <select id="gad6">
+                            <option value="0">Not at all</option>
+                            <option value="1">Several days</option>
+                            <option value="2">More than half the days</option>
+                            <option value="3">Nearly every day</option>
+                        </select>
+                    </div>
+                    <div class="assessment-item">
+                        <label>Feeling afraid as if something awful might happen</label>
+                        <select id="gad7">
+                            <option value="0">Not at all</option>
+                            <option value="1">Several days</option>
+                            <option value="2">More than half the days</option>
+                            <option value="3">Nearly every day</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <button class="btn-primary" onclick="calculateGAD7()">Calculate Score</button>
+                <div id="gad7Result"></div>
+            </div>
+
+            <div class="card">
+                <h2>When to Seek Immediate Help</h2>
+                <ul>
+                    <li>Any mention of suicide or self-harm</li>
+                    <li>Psychotic symptoms (hallucinations, delusions)</li>
+                    <li>Unable to care for themselves</li>
+                    <li>Danger to others</li>
+                    <li>Severe substance abuse</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Diagnosis Information Screen -->
+        <div class="screen" id="diagnosisScreen">
+            <button class="back-btn" onclick="showScreen('homeScreen')">← Back</button>
+            
+            <div class="header">
+                <h1>Understanding Mental Health Diagnoses</h1>
+                <p>Common conditions in young women</p>
+            </div>
+
+            <div class="tab-container">
+                <div class="tab-buttons">
+                    <button class="tab-btn active" onclick="showTab('depression')">Depression</button>
+                    <button class="tab-btn" onclick="showTab('anxiety')">Anxiety</button>
+                    <button class="tab-btn" onclick="showTab('bipolar')">Bipolar</button>
+                    <button class="tab-btn" onclick="showTab('ptsd')">PTSD</button>
+                    <button class="tab-btn" onclick="showTab('eating')">Eating Disorders</button>
+                    <button class="tab-btn" onclick="showTab('borderline')">BPD</button>
+                </div>
+
+                <div class="tab-content active" id="depressionTab">
+                    <div class="card">
+                        <h2>Major Depressive Disorder</h2>
+                        
+                        <h3>Key Symptoms</h3>
+                        <ul>
+                            <li>Persistent sadness or empty mood</li>
+                            <li>Loss of interest in activities</li>
+                            <li>Changes in appetite/weight</li>
+                            <li>Sleep disturbances</li>
+                            <li>Fatigue or loss of energy</li>
+                            <li>Feelings of worthlessness or guilt</li>
+                            <li>Difficulty concentrating</li>
+                            <li>Thoughts of death or suicide</li>
+                        </ul>
+
+                        <h3>Discipleship Considerations</h3>
+                        <ul>
+                            <li>Depression is a medical condition, not a spiritual failing</li>
+                            <li>Encourage professional treatment alongside spiritual support</li>
+                            <li>Be patient - recovery takes time</li>
+                            <li>Watch for suicide warning signs</li>
+                            <li>Help them maintain routines and connections</li>
+                        </ul>
+
+                        <h3>Helpful Scriptures</h3>
+                        <ul>
+                            <li>Psalm 34:18 - God is close to the brokenhearted</li>
+                            <li>2 Corinthians 1:3-4 - God of all comfort</li>
+                            <li>Isaiah 41:10 - Do not fear, I am with you</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="anxietyTab">
+                    <div class="card">
+                        <h2>Anxiety Disorders</h2>
+                        
+                        <h3>Types</h3>
+                        <ul>
+                            <li><strong>Generalized Anxiety:</strong> Persistent worry about multiple areas</li>
+                            <li><strong>Panic Disorder:</strong> Recurrent panic attacks</li>
+                            <li><strong>Social Anxiety:</strong> Fear of social situations</li>
+                            <li><strong>Specific Phobias:</strong> Intense fear of specific objects/situations</li>
+                        </ul>
+
+                        <h3>Key Symptoms</h3>
+                        <ul>
+                            <li>Excessive worry difficult to control</li>
+                            <li>Physical symptoms (racing heart, sweating, trembling)</li>
+                            <li>Avoidance behaviors</li>
+                            <li>Sleep difficulties</li>
+                            <li>Panic attacks</li>
+                        </ul>
+
+                        <h3>Discipleship Considerations</h3>
+                        <ul>
+                            <li>Validate their experience - anxiety is real</li>
+                            <li>Help them practice grounding techniques</li>
+                            <li>Encourage gradual exposure to fears with support</li>
+                            <li>Prayer can help but shouldn't replace treatment</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="bipolarTab">
+                    <div class="card">
+                        <h2>Bipolar Disorder</h2>
+                        
+                        <h3>Key Features</h3>
+                        <ul>
+                            <li><strong>Manic Episodes:</strong> Elevated mood, decreased sleep, risky behavior</li>
+                            <li><strong>Depressive Episodes:</strong> Similar to major depression</li>
+                            <li><strong>Mixed Episodes:</strong> Features of both simultaneously</li>
+                        </ul>
+
+                        <h3>Warning Signs of Mania</h3>
+                        <ul>
+                            <li>Sleeping very little but not tired</li>
+                            <li>Talking very fast, jumping between topics</li>
+                            <li>Grandiose beliefs or plans</li>
+                            <li>Increased religious preoccupation</li>
+                            <li>Impulsive decisions</li>
+                        </ul>
+
+                        <h3>Critical: Medication Compliance</h3>
+                        <p>Bipolar disorder requires medication. Stopping medication often triggers episodes. Support medication compliance as part of stewardship of health.</p>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="ptsdTab">
+                    <div class="card">
+                        <h2>Post-Traumatic Stress Disorder</h2>
+                        
+                        <h3>Key Symptoms</h3>
+                        <ul>
+                            <li>Intrusive memories/flashbacks</li>
+                            <li>Nightmares</li>
+                            <li>Avoidance of trauma reminders</li>
+                            <li>Negative changes in thoughts/mood</li>
+                            <li>Hypervigilance</li>
+                            <li>Emotional numbing</li>
+                        </ul>
+
+                        <h3>Discipleship Considerations</h3>
+                        <ul>
+                            <li>Create safety in your meetings</li>
+                            <li>Be predictable and consistent</li>
+                            <li>Avoid surprising them</li>
+                            <li>Understand trauma affects faith</li>
+                            <li>Professional trauma therapy is essential</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="eatingTab">
+                    <div class="card">
+                        <h2>Eating Disorders</h2>
+                        
+                        <h3>Types</h3>
+                        <ul>
+                            <li><strong>Anorexia Nervosa:</strong> Restriction, fear of weight gain</li>
+                            <li><strong>Bulimia Nervosa:</strong> Binge eating with purging</li>
+                            <li><strong>Binge Eating Disorder:</strong> Recurrent binge episodes</li>
+                        </ul>
+
+                        <h3>Warning Signs</h3>
+                        <ul>
+                            <li>Preoccupation with food, weight, body</li>
+                            <li>Restricting food groups</li>
+                            <li>Eating in secret</li>
+                            <li>Bathroom visits after meals</li>
+                            <li>Excessive exercise</li>
+                            <li>Body image distortion</li>
+                        </ul>
+
+                        <h3>Critical</h3>
+                        <p>Eating disorders have the highest mortality rate of any mental illness. Medical monitoring is essential.</p>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="borderlineTab">
+                    <div class="card">
+                        <h2>Borderline Personality Disorder</h2>
+                        
+                        <h3>Key Features</h3>
+                        <ul>
+                            <li>Intense, unstable relationships</li>
+                            <li>Fear of abandonment</li>
+                            <li>Identity disturbance</li>
+                            <li>Impulsivity</li>
+                            <li>Suicidal behavior or self-harm</li>
+                            <li>Emotional instability</li>
+                            <li>Chronic emptiness</li>
+                        </ul>
+
+                        <h3>Discipleship Considerations</h3>
+                        <ul>
+                            <li>Maintain consistent boundaries</li>
+                            <li>Avoid becoming their only support</li>
+                            <li>Don't take splitting personally</li>
+                            <li>Encourage DBT therapy</li>
+                            <li>Be consistent and predictable</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Discipleship Strategies Screen -->
+        <div class="screen" id="discipleshipScreen">
+            <button class="back-btn" onclick="showScreen('homeScreen')">← Back</button>
+            
+            <div class="header">
+                <h1>Discipleship Strategies</h1>
+                <p>Supporting those with mental health challenges</p>
+            </div>
+
+            <div class="card">
+                <h2>Foundation Principles</h2>
+                <ul>
+                    <li><strong>Mental illness is not a spiritual failure</strong> - It's a medical condition like diabetes or heart disease</li>
+                    <li><strong>Faith and medicine work together</strong> - God can use doctors, therapy, and medication</li>
+                    <li><strong>Your role has limits</strong> - You're a discipler, not a therapist</li>
+                    <li><strong>Professional help is essential</strong> - Serious mental illness requires clinical treatment</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h2>Practical Guidelines</h2>
+                
+                <h3>Meeting Structure</h3>
+                <ul>
+                    <li>Keep consistent schedule and location</li>
+                    <li>Start with check-in about their week</li>
+                    <li>Be flexible with study material based on their capacity</li>
+                    <li>End with specific prayer requests</li>
+                    <li>Keep meetings to agreed timeframe</li>
+                </ul>
+
+                <h3>Communication</h3>
+                <ul>
+                    <li>Use "I notice" statements rather than "You always"</li>
+                    <li>Validate emotions without agreeing with distorted thoughts</li>
+                    <li>Ask "What would be helpful?" rather than assuming</li>
+                    <li>Text check-ins between meetings</li>
+                </ul>
+
+                <h3>Boundaries</h3>
+                <ul>
+                    <li>You're not available 24/7</li>
+                    <li>Don't become their therapist</li>
+                    <li>Refer crisis calls to professionals</li>
+                    <li>Maintain your own support system</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h2>Adapting Bible Study</h2>
+                
+                <h3>When They're Struggling</h3>
+                <ul>
+                    <li>Use shorter passages</li>
+                    <li>Focus on God's love and presence</li>
+                    <li>Avoid heavy conviction passages</li>
+                    <li>Use creative methods (art, music, nature)</li>
+                    <li>Let them just receive without sharing</li>
+                </ul>
+
+                <h3>Helpful Topics</h3>
+                <ul>
+                    <li>God's unconditional love</li>
+                    <li>Lament Psalms</li>
+                    <li>God's presence in suffering</li>
+                    <li>Biblical figures who struggled (Elijah, David)</li>
+                    <li>Hope and future restoration</li>
+                </ul>
+
+                <h3>Topics to Approach Carefully</h3>
+                <ul>
+                    <li>Spiritual warfare (can increase paranoia)</li>
+                    <li>End times (can trigger anxiety)</li>
+                    <li>Sin and judgment (when they're already self-condemning)</li>
+                    <li>Joy and victory (when they're unable to feel positive emotions)</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h2>Supporting Medication Compliance</h2>
+                <ul>
+                    <li>Frame medication as stewardship of their body/temple</li>
+                    <li>Share that many strong Christians take medication</li>
+                    <li>Don't suggest stopping medication</li>
+                    <li>If they want to stop, encourage discussing with doctor</li>
+                    <li>Notice and affirm when medication helps</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Crisis Protocol Screen -->
+        <div class="screen" id="crisisScreen">
+            <button class="back-btn" onclick="showScreen('homeScreen')">← Back</button>
+            
+            <div class="header">
+                <h1>Crisis Protocol</h1>
+                <p>When and how to get emergency help</p>
+            </div>
+
+            <div class="emergency-box">
+                <strong>If someone is in immediate danger, contact emergency services immediately.</strong>
+                <p>Don't wait. Don't try to handle it alone.</p>
+            </div>
+
+            <div class="card">
+                <h2>Suicide Risk Assessment</h2>
+                
+                <h3>Warning Signs - Immediate Action Needed</h3>
+                <ul>
+                    <li>Talking about wanting to die or kill themselves</li>
+                    <li>Looking for ways to kill themselves</li>
+                    <li>Talking about feeling hopeless or having no purpose</li>
+                    <li>Talking about being a burden to others</li>
+                    <li>Increasing use of alcohol or drugs</li>
+                    <li>Withdrawing from activities and isolating</li>
+                    <li>Giving away prized possessions</li>
+                    <li>Saying goodbye to loved ones</li>
+                </ul>
+
+                <h3>What to Do</h3>
+                <ol>
+                    <li>Take it seriously - always</li>
+                    <li>Don't leave them alone</li>
+                    <li>Remove means (pills, weapons, etc.)</li>
+                    <li>Call crisis hotline or emergency services</li>
+                    <li>Go with them to emergency room if needed</li>
+                </ol>
+            </div>
+
+            <div class="card">
+                <h2>Crisis Hotlines</h2>
+                
+                <div class="contact-card">
+                    <h4>988 Suicide & Crisis Lifeline</h4>
+                    <span class="badge">24/7</span>
+                    <span class="badge">Free</span>
+                    <p>Call or Text: 988 (USA)</p>
+                    <p>Available in English and Spanish</p>
+                </div>
+
+                <div class="contact-card">
+                    <h4>Crisis Text Line</h4>
+                    <span class="badge">24/7</span>
+                    <span class="badge">Text Support</span>
+                    <p>Text HOME to 741741 (USA)</p>
+                    <p>Text HOME to 686868 (Canada)</p>
+                    <p>Text HOME to 85258 (UK)</p>
+                </div>
+
+                <div class="contact-card">
+                    <h4>International Crisis Lines</h4>
+                    <p>Website: <a href="https://findahelpline.com" target="_blank">findahelpline.com</a></p>
+                    <p>Directory of crisis lines by country</p>
+                </div>
+
+                <div class="contact-card">
+                    <h4>Christians Against Mental Slavery</h4>
+                    <p>Website: <a href="https://www.cams-us.org" target="_blank">www.cams-us.org</a></p>
+                    <p>Christian mental health crisis support</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>When to Call Emergency Services</h2>
+                <ul>
+                    <li>Suicide attempt or clear plan</li>
+                    <li>Threat to harm others</li>
+                    <li>Psychosis (seeing/hearing things)</li>
+                    <li>Severe self-harm</li>
+                    <li>Catatonia (unable to move/respond)</li>
+                    <li>Severe mania with dangerous behavior</li>
+                </ul>
+                
+                <h3>What to Tell Emergency Services</h3>
+                <ul>
+                    <li>Person's name and location</li>
+                    <li>Mental health diagnosis if known</li>
+                    <li>Current medications</li>
+                    <li>Specific concerning behaviors</li>
+                    <li>Any weapons present</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h2>After a Crisis</h2>
+                <ul>
+                    <li>Debrief with your own support system</li>
+                    <li>Document what happened</li>
+                    <li>Follow up with the person when appropriate</li>
+                    <li>Connect them with ongoing professional help</li>
+                    <li>Adjust your discipleship approach as needed</li>
+                    <li>Consider your own capacity to continue</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Resources Screen -->
+        <div class="screen" id="resourcesScreen">
+            <button class="back-btn" onclick="showScreen('homeScreen')">← Back</button>
+            
+            <div class="header">
+                <h1>Resources & Training</h1>
+                <p>Books, courses, and materials</p>
+            </div>
+
+            <div class="card">
+                <h2>Essential Books</h2>
+                
+                <div class="resource-card">
+                    <h4>Mental Health and the Church</h4>
+                    <p>by Dr. Stephen Grcevich</p>
+                    <p><a href="https://www.amazon.com/Mental-Health-Church-Ministry-Handbook/dp/0830841407" target="_blank">Available on Amazon</a></p>
+                    <p>Practical guide for ministry with mental health challenges</p>
+                </div>
+
+                <div class="resource-card">
+                    <h4>Grace for the Afflicted</h4>
+                    <p>by Dr. Matthew Stanford</p>
+                    <p><a href="https://www.amazon.com/Grace-Afflicted-Clinical-Pastoral-Perspective/dp/0830845879" target="_blank">Available on Amazon</a></p>
+                    <p>Biblical and clinical perspectives on mental illness</p>
+                </div>
+
+                <div class="resource-card">
+                    <h4>Troubled Minds</h4>
+                    <p>by Amy Simpson</p>
+                    <p><a href="https://www.amazon.com/Troubled-Minds-Mental-Illness-Churches/dp/0830843043" target="_blank">Available on Amazon</a></p>
+                    <p>Mental illness and the church's response</p>
+                </div>
+
+                <div class="resource-card">
+                    <h4>Darkness Is My Only Companion</h4>
+                    <p>by Kathryn Greene-McCreight</p>
+                    <p><a href="https://www.amazon.com/Darkness-Only-Companion-Christian-Response/dp/1587433583" target="_blank">Available on Amazon</a></p>
+                    <p>First-person Christian perspective on mental illness</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Online Training</h2>
+                
+                <div class="resource-card">
+                    <h4>Mental Health First Aid</h4>
+                    <p>Website: <a href="https://www.mentalhealthfirstaid.org" target="_blank">www.mentalhealthfirstaid.org</a></p>
+                    <p>8-hour certification course</p>
+                    <p>Learn to identify and respond to mental health crises</p>
+                </div>
+
+                <div class="resource-card">
+                    <h4>AACC Mental Health Coach Training</h4>
+                    <p>Website: <a href="https://www.aacc.net/mental-health-coach/" target="_blank">www.aacc.net/mental-health-coach</a></p>
+                    <p>Christian-integrated mental health coaching certification</p>
+                </div>
+
+                <div class="resource-card">
+                    <h4>Key Ministry Mental Health Training</h4>
+                    <p>Website: <a href="https://www.keyministry.org" target="_blank">www.keyministry.org</a></p>
+                    <p>Free resources for churches</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Free Resources</h2>
+                
+                <div class="resource-card">
+                    <h4>NAMI - National Alliance on Mental Illness</h4>
+                    <p>Website: <a href="https://www.nami.org" target="_blank">www.nami.org</a></p>
+                    <p>Free education programs and support groups</p>
+                    <p>Family-to-Family program excellent for supporters</p>
+                </div>
+
+                <div class="resource-card">
+                    <h4>Fresh Hope</h4>
+                    <p>Website: <a href="https://www.freshhope.us" target="_blank">www.freshhope.us</a></p>
+                    <p>Christian support groups for mental health</p>
+                    <p>Resources for starting groups</p>
+                </div>
+
+                <div class="resource-card">
+                    <h4>The Sanctuary Course</h4>
+                    <p>Website: <a href="https://www.sanctuarymentalhealth.org" target="_blank">www.sanctuarymentalhealth.org</a></p>
+                    <p>Free 8-week study on faith and mental health</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Apps for Mental Health Support</h2>
+                
+                <div class="resource-card">
+                    <h4>Glorify App</h4>
+                    <p>Christian meditation and sleep stories</p>
+                    <p>Helpful for anxiety and sleep issues</p>
+                </div>
+
+                <div class="resource-card">
+                    <h4>Abide</h4>
+                    <p>Biblical meditation app</p>
+                    <p>Specific meditations for anxiety, depression</p>
+                </div>
+
+                <div class="resource-card">
+                    <h4>Youversion Bible App</h4>
+                    <p>Bible reading plans for mental health</p>
+                    <p>Search "anxiety," "depression," "mental health"</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <div class="nav-item active" onclick="showScreen('homeScreen')">
+            <span class="nav-icon">🏠</span>
+            <span class="nav-label">Home</span>
+        </div>
+        <div class="nav-item" onclick="showScreen('crisisScreen')">
+            <span class="nav-icon">🆘</span>
+            <span class="nav-label">Crisis</span>
+        </div>
+        <div class="nav-item" onclick="showScreen('resourcesScreen')">
+            <span class="nav-icon">📚</span>
+            <span class="nav-label">Resources</span>
+        </div>
+        <div class="nav-item" onclick="showModal('infoModal')">
+            <span class="nav-icon">ℹ️</span>
+            <span class="nav-label">Info</span>
+        </div>
+        <div class="nav-item" onclick="showModal('aboutModal')">
+            <span class="nav-icon">👤</span>
+            <span class="nav-label">About</span>
+        </div>
+    </div>
+
+    <!-- Info Modal -->
+    <div class="modal" id="infoModal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('infoModal')">×</span>
+            <h2>How to Use This App</h2>
+            
+            <h3>Purpose</h3>
+            <p>This app helps discipleship workers support young women with mental health challenges, especially in areas with limited professional resources.</p>
+            
+            <h3>Main Features</h3>
+            <ul>
+                <li><strong>Find Professionals:</strong> Connect with Christian psychiatrists and therapists via teletherapy</li>
+                <li><strong>Assessment Tools:</strong> Standard screening tools (PHQ-9, GAD-7) to understand severity</li>
+                <li><strong>Diagnosis Info:</strong> Understanding common mental health conditions</li>
+                <li><strong>Discipleship Guide:</strong> Practical strategies for supporting those with mental illness</li>
+                <li><strong>Crisis Protocol:</strong> When and how to get emergency help</li>
+                <li><strong>Resources:</strong> Books, training, and materials</li>
+            </ul>
+            
+            <h3>Important Reminders</h3>
+            <ul>
+                <li>This app doesn't replace professional mental health care</li>
+                <li>Serious mental illness requires clinical treatment</li>
+                <li>Your role is discipleship, not therapy</li>
+                <li>When in doubt, refer to professionals</li>
+            </ul>
+            
+            <h3>Getting Started</h3>
+            <ol>
+                <li>Use the Quick Assessment on the home screen</li>
+                <li>Based on results, explore relevant sections</li>
+                <li>Connect with professionals for consultation</li>
+                <li>Use the discipleship strategies while they get treatment</li>
+            </ol>
+            
+            <h3>Install on Phone</h3>
+            <p><strong>iPhone:</strong> Share → Add to Home Screen</p>
+            <p><strong>Android:</strong> Menu → Add to Home Screen</p>
+        </div>
+    </div>
+
+    <!-- About Modal -->
+    <div class="modal" id="aboutModal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('aboutModal')">×</span>
+            <h2>About This Resource</h2>
+            
+            <h3>Created by Justin</h3>
+            <p>Depths to Heights Ministry</p>
+            
+            <h3>Our Mission</h3>
+            <p>Depths to Heights bridges the gap between faith and mental health, providing practical resources for Christian workers supporting those with mental health challenges. This app was created specifically for discipleship workers in areas with limited mental health resources.</p>
+            
+            <h3>Theological Foundation</h3>
+            <p>We believe:</p>
+            <ul>
+                <li>Mental illness is not a spiritual failure or lack of faith</li>
+                <li>God works through medical professionals and treatments</li>
+                <li>The church has a vital role in supporting those with mental illness</li>
+                <li>Professional treatment and spiritual support work together</li>
+            </ul>
+            
+            <h3>Contact Information</h3>
+            <p><strong>Website:</strong> <a href="https://depthstoheights.org" target="_blank">depthstoheights.org</a></p>
+            <p><strong>Email:</strong> <a href="mailto:depthstoheights@gmail.com">depthstoheights@gmail.com</a></p>
+            
+            <h3>Support Our Work</h3>
+            <p>Your donation helps us continue developing resources that bridge faith and mental health.</p>
+            <button class="donate-btn" onclick="window.open('https://www.paypal.com/donate/?hosted_button_id=8GRE7B8C3TP2U', '_blank')">Donate via PayPal</button>
+            
+            <h3>Professional Advisors</h3>
+            <p>This app was developed in consultation with Christian mental health professionals and experienced discipleship workers.</p>
+            
+            <h3>Disclaimer</h3>
+            <p>This app provides educational information only. It is not a substitute for professional mental health treatment. Always consult qualified professionals for diagnosis and treatment.</p>
+            
+            <h3>Version</h3>
+            <p>Christian Mental Health Support v1.0</p>
+            <p>© 2025 Depths to Heights</p>
+        </div>
+    </div>
+
+    <script>
+        // App state
+        let currentScreen = 'homeScreen';
+        let audioPlaying = false;
+
+        // Initialize
+        function init() {
+            loadSavedData();
+            setupEventListeners();
+        }
+
+        // Navigation
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            document.getElementById(screenId).classList.add('active');
+            currentScreen = screenId;
+            updateNavigation();
+            window.scrollTo(0, 0);
+        }
+
+        function updateNavigation() {
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            const navMap = {
+                'homeScreen': 0,
+                'crisisScreen': 1,
+                'resourcesScreen': 2
+            };
+            
+            if (navMap[currentScreen] !== undefined) {
+                document.querySelectorAll('.nav-item')[navMap[currentScreen]].classList.add('active');
+            }
+        }
+
+        // Modals
+        function showModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        // Tabs
+        function showTab(tabName) {
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(tabName + 'Tab').classList.add('active');
+        }
+
+        // Audio toggle
+        function setupEventListeners() {
+            document.getElementById('audioToggle').addEventListener('click', function() {
+                audioPlaying = !audioPlaying;
+                this.classList.toggle('playing');
+            });
+        }
+
+        // Quick Assessment
+        function evaluateQuickAssessment() {
+            const checks = document.querySelectorAll('#homeScreen .checklist-item input:checked');
+            let message = '';
+            let urgent = false;
+            
+            checks.forEach(check => {
+                if (check.id === 'q1' || check.id === 'q2') {
+                    urgent = true;
+                }
+            });
+            
+            if (urgent) {
+                message = '<div class="emergency-box"><strong>⚠️ URGENT:</strong> These symptoms require immediate professional help. Contact a crisis line or emergency services. See Crisis Protocol for resources.</div>';
+            } else if (checks.length >= 3) {
+                message = '<div class="warning-box"><strong>Professional help recommended.</strong> Multiple concerning symptoms present. Connect with a mental health professional through the Find Professionals section.</div>';
+            } else if (checks.length > 0) {
+                message = '<div class="info-box"><strong>Support needed.</strong> Consider connecting with a Christian counselor for evaluation. Continue discipleship with awareness of these challenges.</div>';
+            } else {
+                message = '<div class="info-box"><strong>No immediate concerns noted.</strong> Continue regular discipleship while staying alert to changes.</div>';
+            }
+            
+            // Create result div
+            const resultDiv = document.createElement('div');
+            resultDiv.innerHTML = message;
+            
+            // Insert after button
+            const button = document.querySelector('#homeScreen .btn-primary');
+            button.parentNode.insertBefore(resultDiv, button.nextSibling);
+            
+            // Save assessment
+            saveAssessment('quick', checks.length);
+        }
+
+        // PHQ-9 Calculator
+        function calculatePHQ9() {
+            let score = 0;
+            for (let i = 1; i <= 9; i++) {
+                score += parseInt(document.getElementById('phq' + i).value);
+            }
+            
+            let severity = '';
+            let recommendation = '';
+            
+            if (score < 5) {
+                severity = 'Minimal depression';
+                recommendation = 'Continue regular discipleship. Monitor for changes.';
+            } else if (score < 10) {
+                severity = 'Mild depression';
+                recommendation = 'Consider counseling. Use supportive discipleship strategies.';
+            } else if (score < 15) {
+                severity = 'Moderate depression';
+                recommendation = 'Professional treatment recommended. Adapt discipleship approach.';
+            } else if (score < 20) {
+                severity = 'Moderately severe depression';
+                recommendation = 'Professional treatment strongly recommended. Consider medication evaluation.';
+            } else {
+                severity = 'Severe depression';
+                recommendation = 'Urgent professional treatment needed. Ensure safety. Consider hospitalization if suicidal.';
+            }
+            
+            // Check question 9 (self-harm)
+            if (document.getElementById('phq9').value > 0) {
+                recommendation = '<span style="color: red;">⚠️ SUICIDE RISK: ' + recommendation + ' Conduct suicide risk assessment immediately.</span>';
+            }
+            
+            const resultDiv = document.getElementById('phq9Result');
+            resultDiv.innerHTML = `
+                <div class="info-box">
+                    <h4>PHQ-9 Score: ${score}</h4>
+                    <p><strong>Severity:</strong> ${severity}</p>
+                    <p><strong>Recommendation:</strong> ${recommendation}</p>
+                </div>
+            `;
+            
+            saveAssessment('PHQ9', score);
+        }
+
+        // GAD-7 Calculator
+        function calculateGAD7() {
+            let score = 0;
+            for (let i = 1; i <= 7; i++) {
+                score += parseInt(document.getElementById('gad' + i).value);
+            }
+            
+            let severity = '';
+            let recommendation = '';
+            
+            if (score < 5) {
+                severity = 'Minimal anxiety';
+                recommendation = 'Continue regular discipleship. Practice preventive stress management.';
+            } else if (score < 10) {
+                severity = 'Mild anxiety';
+                recommendation = 'Teach coping strategies. Consider counseling if persistent.';
+            } else if (score < 15) {
+                severity = 'Moderate anxiety';
+                recommendation = 'Professional treatment recommended. May benefit from therapy and/or medication.';
+            } else {
+                severity = 'Severe anxiety';
+                recommendation = 'Professional treatment strongly recommended. Likely needs comprehensive treatment.';
+            }
+            
+            const resultDiv = document.getElementById('gad7Result');
+            resultDiv.innerHTML = `
+                <div class="info-box">
+                    <h4>GAD-7 Score: ${score}</h4>
+                    <p><strong>Severity:</strong> ${severity}</p>
+                    <p><strong>Recommendation:</strong> ${recommendation}</p>
+                </div>
+            `;
+            
+            saveAssessment('GAD7', score);
+        }
+
+        // Save data
+        function saveAssessment(type, score) {
+            const assessments = JSON.parse(localStorage.getItem('d2h_assessments') || '[]');
+            assessments.push({
+                type: type,
+                score: score,
+                date: new Date().toISOString()
+            });
+            localStorage.setItem('d2h_assessments', JSON.stringify(assessments));
+        }
+
+        function loadSavedData() {
+            // Load any saved assessments or notes
+            const assessments = localStorage.getItem('d2h_assessments');
+            if (assessments) {
+                console.log('Previous assessments found');
+            }
+        }
+
+        // Initialize on load
+        window.addEventListener('load', init);
+    </script>
+</body>
+</html>
